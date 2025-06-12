@@ -2,12 +2,26 @@
 // 실험 초기화
 // ==========================
 
-const jsPsych = initJsPsych({
+var jsPsych = initJsPsych({
   on_finish: function () {
     jsPsych.data.displayData();
-  }
+  }           
 });
 
+// ==========================
+// 데이터 저장 함수 (Pipe 사용)
+// ==========================
+
+const subject_id = jsPsych.randomization.randomID(10);
+const filename = `${subject_id}.csv`;
+            
+              const save_data = {
+                type: jsPsychPipe,
+                action: "save",
+                experiment_id: "IZ6AZ6fDV83W",
+                filename: filename,
+                data_string: ()=>jsPsych.data.get().csv()
+              };
 // ==========================
 // 인스트럭션 화면
 // ==========================
@@ -134,20 +148,7 @@ const end_message = {
   stimulus: '<p style="font-size: 24px;">実験は終了です。ご協力ありがとうございました。</p>'
 };
 
-// ==========================
-// 데이터 저장 함수 (Pipe 사용)
-// ==========================
 
-const subject_id = jsPsych.randomization.randomID(10);
-const filename = `${subject_id}.csv`;
-
-const save_data = {
-  type: jsPsychPipe,
-  action: "save",
-  experiment_id: "IZ6AZ6fDV83W",
-  filename: filename,
-  data_string: () => jsPsych.data.get().csv()
-};
 
 // ==========================
 // 실험 실행
