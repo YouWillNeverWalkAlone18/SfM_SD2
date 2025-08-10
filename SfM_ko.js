@@ -356,7 +356,7 @@ function makeBlock(blockIndex) {
 　　　</div>',
       choices: function () {
   return image_order.map(label =>
-    `<img src="${label}.png" alt="${label === 'CW_ko' ? '時計回り' : '反時計回り'}" width="200">`
+    `<img src="${label}.png" alt="${label === 'CW' ? '時計回り' : '反時計回り'}" width="200">`
   );
 },
       margin_vertical: '15px',
@@ -522,7 +522,6 @@ timeline.push({
     return `
       <div style="max-width: 800px; margin: 0 auto; font-size: 16px; line-height: 1.6; text-align: left; color: #e0e0e0;">
         <p>회전 방향을 선택하는 버튼은, 아래와 같이 화면에 표시됩니다.</p>
-        <p>본 실험에 앞서 10회의 연습이 시작됩니다.</p>
         <p>실험 참가에 동의하시는 경우,「계속」버튼을 눌러 연습을 진행해주세요.</p>
         ${image_html}
       </div>
@@ -548,5 +547,6 @@ timeline.push({
 });
 
 timeline.push(save_data);
+
 
 jsPsych.run(timeline);
