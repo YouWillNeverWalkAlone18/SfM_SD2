@@ -22,26 +22,27 @@ const save_data = {
   experiment_id: "IZ6AZ6fDV83W",
   filename: filename,
   data_string: () => {
-    const allData = jsPsych.data.get().values();
-    if (allData.length === 0) return "";
+  const allData = jsPsych.data.get().values();
+  if (allData.length === 0) return "";
 
-    const header = Object.keys(allData[0]);
-    const csvRows = [];
-    csvRows.push(header.join(","));
+  // 저장하고 싶은 필드명 명시
+  const fields = ['trial_type', 'trial_index', 'chosen_label', 'chosen_value', 'Continue', 'block', 'trial_in_block', 'stimulus_type', 'response', 'trial_index_global'];
 
-    for (let row of allData) {
-      const values = header.map(h => {
-        // 값에 쉼표, 쌍따옴표, 줄바꿈 등이 있으면 쌍따옴표로 감싸고, 내부 쌍따옴표는 두 개로 변경
-        let val = row[h] !== undefined && row[h] !== null ? String(row[h]) : "";
-        if (val.includes(",") || val.includes("\"") || val.includes("\n")) {
-          val = `"${val.replace(/"/g, '""')}"`;
-        }
-        return val;
-      });
-      csvRows.push(values.join(","));
-    }
-    return csvRows.join("\n");
+  const csvRows = [];
+  csvRows.push(fields.join(","));
+
+  for (let row of allData) {
+    const values = fields.map(field => {
+      let val = row[field] !== undefined && row[field] !== null ? String(row[field]) : "";
+      if (val.includes(",") || val.includes("\"") || val.includes("\n")) {
+        val = `"${val.replace(/"/g, '""')}"`;
+      }
+      return val;
+    });
+    csvRows.push(values.join(","));
   }
+  return csvRows.join("\n");
+}
 };
 
 
@@ -574,6 +575,7 @@ timeline.push(save_data);
 
 
 jsPsych.run(timeline);
+
 
 
 
