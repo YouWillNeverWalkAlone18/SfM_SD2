@@ -5,12 +5,12 @@ var jsPsych = initJsPsych({
 });
 
 // イメージ配置順ランダム
-const image_order = jsPsych.randomization.shuffle(["CW", "CCW"]);
+const image_order = jsPsych.randomization.shuffle(["시계", "반시계"]);
 
 // イメージ対応値
 const label_map = {
-  "CW": 1,
-  "CCW": 0
+  "시계": 1,
+  "반시계": 0
 };
 
 const subject_id = jsPsych.randomization.randomID(10);
@@ -356,7 +356,7 @@ function makeBlock(blockIndex) {
 　　　</div>',
       choices: function () {
   return image_order.map(label =>
-    `<img src="${label}.png" alt="${label === 'CW' ? '時計回り' : '反時計回り'}" width="200">`
+    `<img src="${label}.png" alt="${label === '시계' ? '時計回り' : '反時計回り'}" width="200">`
   );
 },
       margin_vertical: '15px',
@@ -553,4 +553,5 @@ timeline.push(save_data);
 
 
 jsPsych.run(timeline);
+
 
