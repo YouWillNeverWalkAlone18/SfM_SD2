@@ -399,6 +399,9 @@ function makeBlock(blockIndex) {
   } else {
     data.Continue = null; 
   }
+        console.log('response:', data.response);
+  console.log('chosen_label:', image_order[data.response]);
+  console.log('chosen_value:', label_map[image_order[data.response]]);
 },
   });
 
@@ -550,3 +553,4 @@ timeline.push(save_data);
 
 
 jsPsych.run(timeline);
+
