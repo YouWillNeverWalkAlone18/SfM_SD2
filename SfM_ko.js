@@ -359,13 +359,13 @@ function makeBlock(blockIndex) {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: `<div style="font-size:32px; color: #e0e0e0;">+</div>`,
       choices: "NO_KEYS",
-      trial_duration: 10,
+      trial_duration: 1000,
     });
 
     trials.push({
       type: jsPsychP5,
       sketch: trial_sketch,
-      trial_duration: 100,
+      trial_duration: 2500,
     });
 
     trials.push({
@@ -431,7 +431,7 @@ function makeBlock(blockIndex) {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: '',
       choices: "NO_KEYS",
-      trial_duration: 10,
+      trial_duration: 1000,
     });
   }
 
@@ -575,6 +575,7 @@ timeline.push(save_data);
 
 
 jsPsych.run(timeline);
+
 
 
 
