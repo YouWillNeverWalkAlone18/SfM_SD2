@@ -21,8 +21,29 @@ const save_data = {
   action: "save",
   experiment_id: "IZ6AZ6fDV83W",
   filename: filename,
-  data_string: () => jsPsych.data.get().csv()
+  data_string: () => {
+    const allData = jsPsych.data.get().values();
+    if (allData.length === 0) return "";
+
+    const header = Object.keys(allData[0]);
+    const csvRows = [];
+    csvRows.push(header.join(","));
+
+    for (let row of allData) {
+      const values = header.map(h => {
+        // 값에 쉼표, 쌍따옴표, 줄바꿈 등이 있으면 쌍따옴표로 감싸고, 내부 쌍따옴표는 두 개로 변경
+        let val = row[h] !== undefined && row[h] !== null ? String(row[h]) : "";
+        if (val.includes(",") || val.includes("\"") || val.includes("\n")) {
+          val = `"${val.replace(/"/g, '""')}"`;
+        }
+        return val;
+      });
+      csvRows.push(values.join(","));
+    }
+    return csvRows.join("\n");
+  }
 };
+
 
 let completedTrials = 5; // 初期値を5に設定
 
@@ -553,5 +574,6 @@ timeline.push(save_data);
 
 
 jsPsych.run(timeline);
+
 
 
